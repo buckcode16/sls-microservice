@@ -29,13 +29,13 @@ exports.Verify = (0, core_1.default)((event) => {
 }).use((0, http_json_body_parser_1.default)());
 exports.Profile = (0, core_1.default)((event) => {
     const httpMethod = event.requestContext.http.method.toLowerCase();
-    if (httpMethod === 'POST') {
+    if (httpMethod === 'post') {
         return service.CreateProfile(event);
     }
-    else if (httpMethod === 'PUT') {
+    else if (httpMethod === 'put') {
         return service.EditProfile(event);
     }
-    else if (httpMethod === 'GET') {
+    else if (httpMethod === 'get') {
         return service.GetProfile(event);
     }
     else {
@@ -44,13 +44,13 @@ exports.Profile = (0, core_1.default)((event) => {
 }).use((0, http_json_body_parser_1.default)());
 exports.Cart = (0, core_1.default)((event) => {
     const httpMethod = event.requestContext.http.method.toLowerCase();
-    if (httpMethod === 'POST') {
+    if (httpMethod === 'post') {
         return service.CreateCart(event);
     }
-    else if (httpMethod === 'PUT') {
+    else if (httpMethod === 'put') {
         return service.UpdateCart(event);
     }
-    else if (httpMethod === 'GET') {
+    else if (httpMethod === 'get') {
         return service.GetCart(event);
     }
     else {
@@ -59,13 +59,13 @@ exports.Cart = (0, core_1.default)((event) => {
 }).use((0, http_json_body_parser_1.default)());
 exports.Payment = (0, core_1.default)((event) => {
     const httpMethod = event.requestContext.http.method.toLowerCase();
-    if (httpMethod === 'POST') {
+    if (httpMethod === 'post') {
         return service.CreatePaymentMethod(event);
     }
-    else if (httpMethod === 'PUT') {
+    else if (httpMethod === 'put') {
         return service.UpdatePaymentMethod(event);
     }
-    else if (httpMethod === 'GET') {
+    else if (httpMethod === 'get') {
         return service.GetPaymentMethod(event);
     }
     else {
