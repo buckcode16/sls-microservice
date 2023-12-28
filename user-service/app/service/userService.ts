@@ -13,10 +13,12 @@ import { autoInjectable } from 'tsyringe'
 import { plainToClass } from 'class-transformer'
 import { SignupInput } from '../models/dto/SignupInput'
 import { LoginInput } from '../models/dto/LoginInput'
+import { VerificationInput } from '../models/dto/UpdateInput'
 import {
   GenerateAccessCode,
   SendVerificationCode,
 } from '../utility/notification'
+import { TimeDifference } from '../utility/dateHelper'
 
 @autoInjectable()
 export class UserService {
@@ -25,6 +27,9 @@ export class UserService {
     this.repository = repository
   }
 
+  async ResponseWithError(event: APIGatewayProxyEventV2) {
+    return ErrorResponse(404, 'requested method is not supported!')
+  }
   // User creation, validation & login
   async CreateUser(event: APIGatewayProxyEventV2) {
     try {
@@ -75,17 +80,44 @@ export class UserService {
   async GetVerificationToken(event: APIGatewayProxyEventV2) {
     const token = event.headers.authorization
     const payload = await VerifyToken(token)
-    if (payload) {
-      const { code, expiry } = GenerateAccessCode()
-      // Persist in DB to confirm verification
-      const response = await SendVerificationCode(code, payload.phone)
-      return SuccessResponse({
-        message: 'verification code is sent to your registered mobile number!',
-      })
-    }
+
+    if (!payload) return ErrorResponse(403, 'authorization failed!')
+
+    const { code, expiry } = GenerateAccessCode()
+    await this.repository.updateVerificationCode(payload.user_id, code, expiry)
+
+    // await SendVerificationCode(code, payload.phone);
+
+    return SuccessResponse({
+      message: 'verification code is sent to your registered mobile number!',
+    })
   }
   async VerifyUser(event: APIGatewayProxyEventV2) {
-    return SuccessResponse({ message: 'response from Verify User' })
+    const token = event.headers.authorization
+    const payload = await VerifyToken(token)
+    if (!payload) return ErrorResponse(403, 'authorization failed!')
+
+    const input = plainToClass(VerificationInput, event.body)
+    const error = await AppValidationError(input)
+    if (error) return ErrorResponse(404, error)
+
+    const { verification_code, expiry } = await this.repository.findAccount(
+      payload.email,
+    )
+    // Find user account
+    if (verification_code === parseInt(input.code)) {
+      // Check expiry
+      const currentTime = new Date()
+      const diff = TimeDifference(expiry, currentTime.toISOString(), 'm')
+
+      if (diff > 0) {
+        console.log('verified successfully!')
+        await this.repository.updateVerifyUser(payload.user_id)
+      } else {
+        return ErrorResponse(403, 'verification code is expired!')
+      }
+    }
+    return SuccessResponse({ message: 'user verified!' })
   }
 
   // User profile
