@@ -29,11 +29,11 @@ export const Verify = middy((event: APIGatewayProxyEventV2) => {
 export const Profile = middy((event: APIGatewayProxyEventV2) => {
   const httpMethod = event.requestContext.http.method.toLowerCase()
 
-  if (httpMethod === 'POST') {
+  if (httpMethod === 'post') {
     return service.CreateProfile(event)
-  } else if (httpMethod === 'PUT') {
+  } else if (httpMethod === 'put') {
     return service.EditProfile(event)
-  } else if (httpMethod === 'GET') {
+  } else if (httpMethod === 'get') {
     return service.GetProfile(event)
   } else {
     return service.ResponseWithError(event)
@@ -43,11 +43,11 @@ export const Profile = middy((event: APIGatewayProxyEventV2) => {
 export const Cart = middy((event: APIGatewayProxyEventV2) => {
   const httpMethod = event.requestContext.http.method.toLowerCase()
 
-  if (httpMethod === 'POST') {
+  if (httpMethod === 'post') {
     return service.CreateCart(event)
-  } else if (httpMethod === 'PUT') {
+  } else if (httpMethod === 'put') {
     return service.UpdateCart(event)
-  } else if (httpMethod === 'GET') {
+  } else if (httpMethod === 'get') {
     return service.GetCart(event)
   } else {
     return service.ResponseWithError(event)
@@ -57,11 +57,11 @@ export const Cart = middy((event: APIGatewayProxyEventV2) => {
 export const Payment = middy((event: APIGatewayProxyEventV2) => {
   const httpMethod = event.requestContext.http.method.toLowerCase()
 
-  if (httpMethod === 'POST') {
+  if (httpMethod === 'post') {
     return service.CreatePaymentMethod(event)
-  } else if (httpMethod === 'PUT') {
+  } else if (httpMethod === 'put') {
     return service.UpdatePaymentMethod(event)
-  } else if (httpMethod === 'GET') {
+  } else if (httpMethod === 'get') {
     return service.GetPaymentMethod(event)
   } else {
     return service.ResponseWithError(event)
