@@ -57,6 +57,10 @@ export const Cart = middy((event: APIGatewayProxyEventV2) => {
   }
 }).use(bodyParser())
 
+export const CollectPayment = middy((event: APIGatewayProxyEventV2) => {
+  return cartService.CollectPayment(event)
+}).use(bodyParser())
+
 export const Payment = middy((event: APIGatewayProxyEventV2) => {
   const httpMethod = event.requestContext.http.method.toLowerCase()
 
