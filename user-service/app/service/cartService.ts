@@ -139,11 +139,12 @@ export class CartService {
     try {
       const token = event.headers.authorization
       const payload = await VerifyToken(token)
-      // initilize Payment gateway
 
-      // authenticate payment confirmation
+      // Init Payment gateway
 
-      // get cart items
+      // Authenticate payment confirmation
+
+      // Get cart items
 
       if (!payload) return ErrorResponse(403, 'authorization failed!')
       const cartItems = await this.repository.findCartItems(payload.user_id)

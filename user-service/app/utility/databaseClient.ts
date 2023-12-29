@@ -2,10 +2,10 @@ import { Client } from 'pg'
 
 export const DBClient = () => {
   return new Client({
-    host: 'ec2-52-221-214-109.ap-southeast-1.compute.amazonaws.com',
-    user: 'user_service',
-    database: 'user_service',
-    password: 'user_service',
+    host: '127.0.0.1',
+    user: 'postgres',
+    database: 'postgres',
+    password: 'postgres',
     port: 5432,
   })
 }
@@ -22,4 +22,11 @@ export const DBClient = () => {
 // user: 'user_service',
 // database: 'user_service',
 // password: 'user_service',
+// port: 5432,
+
+// Local Host Instance
+// host: '127.0.0.1',
+// user: 'postgres',
+// database: 'postgres',
+// password: 'postgres',
 // port: 5432,
