@@ -1,0 +1,43 @@
+postgres=# ALTER USER postgres WITH PASSWORD 'postgres'
+postgres-# CREATE ROLE user_service
+postgres-#
+postgres-# exit
+Use \q to quit.
+postgres-# \q
+postgres@ip-172-31-16-12:~$ psql
+psql (14.10 (Ubuntu 14.10-0ubuntu0.22.04.1))
+Type "help" for help.
+
+postgres=# ALTER USER postgres WITH PASSWORD 'postgres'
+CREATE ROLE user_service
+exit
+postgres-# \q
+postgres@ip-172-31-16-12:~$ ALTER USER postgres WITH PASSWORD 'postgres';
+ALTER: command not found
+postgres@ip-172-31-16-12:~$ psql
+psql (14.10 (Ubuntu 14.10-0ubuntu0.22.04.1))
+Type "help" for help.
+
+postgres=# ALTER USER postgres WITH PASSWORD 'postgres';
+ALTER ROLE
+postgres=# CREATE ROLE user_service;
+CREATE ROLE
+postgres=# \du
+                                     List of roles
+  Role name   |                         Attributes                         | Member of
+--------------+------------------------------------------------------------+-----------
+ postgres     | Superuser, Create role, Create DB, Replication, Bypass RLS | {}
+ user_service | Cannot login                                               | {}
+
+postgres=# ALTER ROLE user_service WITH LOGIN;
+ALTER ROLE
+postgres=# ALTER ROLE user_service WITH PASSWORD 'user_service';
+ALTER ROLE
+postgres=# ALTER ROLE user_service WITH CREATEDB;
+ALTER ROLE
+postgres=# \du
+                                     List of roles
+  Role name   |                         Attributes                         | Member of
+--------------+------------------------------------------------------------+-----------
+ postgres     | Superuser, Create role, Create DB, Replication, Bypass RLS | {}
+ user_service | Create DB
