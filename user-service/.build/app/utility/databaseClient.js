@@ -4,9 +4,9 @@ exports.DBClient = void 0;
 const pg_1 = require("pg");
 const DBClient = () => {
     return new pg_1.Client({
-        host: '127.0.0.1',
+        host: 'user-service.cv402emcgt18.ap-southeast-1.rds.amazonaws.com',
         user: 'postgres',
-        database: 'postgres',
+        database: 'user_service',
         password: 'postgres',
         port: 5432,
     });
