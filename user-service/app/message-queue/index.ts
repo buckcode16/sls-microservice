@@ -3,7 +3,7 @@ import axios from 'axios'
 const PRODUCT_SERVICE_URL =
   // From process.env
 
-  // Cloud:
+  // Cloud: Product Service Stack
   'https://55mpfb9t77.execute-api.ap-southeast-1.amazonaws.com/prod/products-queue'
 
 // Local:

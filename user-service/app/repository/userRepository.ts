@@ -25,7 +25,7 @@ export class UserRepository extends DBOperation {
     const values = [email]
     const result = await this.executeQuery(queryString, values)
     if (result.rowCount < 1) {
-      throw new Error('User does not exist with provided email id!')
+      throw new Error('user does not exist with provided email id!')
     }
     return result.rows[0] as UserModel
   }
@@ -38,7 +38,7 @@ export class UserRepository extends DBOperation {
     if (result.rowCount > 0) {
       return result.rows[0] as UserModel
     }
-    throw new Error('User already verified!')
+    throw new Error('user already verified!')
   }
 
   async updateVerifyUser(userId: number) {
@@ -49,7 +49,7 @@ export class UserRepository extends DBOperation {
     if (result.rowCount > 0) {
       return result.rows[0] as UserModel
     }
-    throw new Error('User already verified!')
+    throw new Error('user already verified!')
   }
 
   async updateUser(
@@ -65,7 +65,7 @@ export class UserRepository extends DBOperation {
     if (result.rowCount > 0) {
       return result.rows[0] as UserModel
     }
-    throw new Error('Error while updating user!')
+    throw new Error('error while updating user!')
   }
 
   async createProfile(
@@ -80,7 +80,7 @@ export class UserRepository extends DBOperation {
     await this.updateUser(user_id, firstName, lastName, userType)
 
     const queryString =
-      'INSERT INTO address(user_id, address_line1, address_line2, city, post_code, country) VALUES($1,$2,$3,$4,$5, $6) RETURNING *'
+      'INSERT INTO address(user_id, address_line1,address_line2,city,post_code,country) VALUES($1,$2,$3,$4,$5,$6) RETURNING *'
     const values = [
       user_id,
       addressLine1,
@@ -93,33 +93,30 @@ export class UserRepository extends DBOperation {
     if (result.rowCount > 0) {
       return result.rows[0] as AddressModel
     }
-    throw new Error('Error while creating profile!')
+
+    throw new Error('error while creating profile!')
   }
 
   async getUserProfile(user_id: number) {
-    const profileQueryString =
-      'SELECT first_name, last_name, email, phone, user_type, verified FROM users WHERE user_id=$1'
+    const profileQuery =
+      'SELECT first_name, last_name, email, phone, user_type, verified, stripe_id, payment_id FROM users WHERE user_id=$1'
     const profileValues = [user_id]
-    const profileResult = await this.executeQuery(
-      profileQueryString,
-      profileValues,
-    )
+
+    const profileResult = await this.executeQuery(profileQuery, profileValues)
     if (profileResult.rowCount < 1) {
-      throw new Error('User profile does not exist!')
+      throw new Error('user profile does not exist!')
     }
 
     const userProfile = profileResult.rows[0] as UserModel
 
-    const addressQueryString =
+    const addressQuery =
       'SELECT id, address_line1, address_line2, city, post_code, country FROM address WHERE user_id=$1'
     const addressValues = [user_id]
-    const addressResult = await this.executeQuery(
-      addressQueryString,
-      addressValues,
-    )
+    const addressResult = await this.executeQuery(addressQuery, addressValues)
     if (addressResult.rowCount > 0) {
       userProfile.address = addressResult.rows as AddressModel[]
     }
+
     return userProfile
   }
 
@@ -134,7 +131,7 @@ export class UserRepository extends DBOperation {
   ) {
     await this.updateUser(user_id, firstName, lastName, userType)
 
-    const addressQueryString =
+    const addressQuery =
       'UPDATE address SET address_line1=$1, address_line2=$2, city=$3, post_code=$4, country=$5 WHERE id=$6'
     const addressValues = [
       addressLine1,
@@ -145,13 +142,30 @@ export class UserRepository extends DBOperation {
       id,
     ]
 
-    const addressResult = await this.executeQuery(
-      addressQueryString,
-      addressValues,
-    )
+    const addressResult = await this.executeQuery(addressQuery, addressValues)
+
     if (addressResult.rowCount < 1) {
-      throw new Error('Error while updating profile!')
+      throw new Error('error while updating profile!')
     }
     return true
+  }
+
+  async updateUserPayment({
+    userId,
+    paymentId,
+    customerId,
+  }: {
+    userId: number
+    paymentId: string
+    customerId: string
+  }) {
+    const queryString =
+      'UPDATE users SET stripe_id=$1, payment_id=$2 WHERE user_id=$3 RETURNING *'
+    const values = [customerId, paymentId, userId]
+    const result = await this.executeQuery(queryString, values)
+    if (result.rowCount > 0) {
+      return result.rows[0] as UserModel
+    }
+    throw new Error('error while updating user payment!')
   }
 }
