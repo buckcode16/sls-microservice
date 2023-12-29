@@ -1,6 +1,8 @@
 service: user-service
 frameworkVersion: '3'
 
+useDotenv: true
+
 provider:
   name: aws
   runtime: nodejs18.x
@@ -22,12 +24,12 @@ provider:
 custom:
   stage: dev
   serverless-offline:
-    httpPort: 3000
+    httpPort: 4000
     lambdaPort: 4002
 
 functions:
   signup:
-    handler: app/handler.Signup
+    handler: app/handler.SignUp
     events:
       - httpApi:
           path: /signup
@@ -43,60 +45,83 @@ functions:
     events:
       - httpApi:
           path: /verify
-          method: get
+          method: post
+  get-verification-code:
+    handler: app/handler.GetVerificationCode
+    events:
       - httpApi:
           path: /verify
-          method: post
-  profile:
-    handler: app/handler.Profile
+          method: get
+  create-profile:
+    handler: app/handler.CreateProfile
     events:
       - httpApi:
           path: /user
           method: post
+  edit-profile:
+    handler: app/handler.EditProfile
+    events:
       - httpApi:
           path: /user
           method: put
+  get-profile:
+    handler: app/handler.GetProfile
+    events:
       - httpApi:
           path: /user
           method: get
-  cart:
-    handler: app/handler.Cart
-    timeout: 15
+  # Cart Section
+  create-cart:
+    handler: app/handler.CreateCart
+    timeout: 20
     events:
       - httpApi:
           path: /cart
           method: post
+  edit-cart:
+    handler: app/handler.EditCart
+    timeout: 20
+    events:
       - httpApi:
           path: /cart/{id}
           method: put
+  get-cart:
+    handler: app/handler.GetCart
+    timeout: 20
+    events:
       - httpApi:
           path: /cart
           method: get
+  delete-cart:
+    handler: app/handler.DeleteCart
+    timeout: 20
+    events:
       - httpApi:
           path: /cart/{id}
           method: delete
-  payment:
-    handler: app/handler.Payment
-    events:
-      - httpApi:
-          path: /payment
-          method: post
-      - httpApi:
-          path: /payment
-          method: put
-      - httpApi:
-          path: /payment
-          method: get
-  order:
+  collect-payment:
     handler: app/handler.CollectPayment
+    timeout: 20
     events:
       - httpApi:
-          path: /place-order
+          path: /collect-payment
+          method: post
+
+  place-order:
+    handler: app/handler.PlaceOrder
+    timeout: 20
+    events:
+      - httpApi:
+          path: /order
           method: post
 
 plugins:
   - serverless-offline
   - serverless-plugin-typescript
+  - serverless-plugin-optimize
+
+package:
+  individually: true
 
 resources:
   Resources:
