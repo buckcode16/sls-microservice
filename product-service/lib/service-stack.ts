@@ -6,22 +6,19 @@ import {
 } from 'aws-cdk-lib/aws-lambda-nodejs'
 import { Construct } from 'constructs'
 import { join } from 'path'
+import { ServiceInterface } from './serviceInterface'
 
 interface ServiceProps {
   bucket: string
 }
 
 export class ServiceStack extends Construct {
-  public readonly productService: NodejsFunction
-  public readonly categoryService: NodejsFunction
-  public readonly dealsService: NodejsFunction
-  public readonly imageService: NodejsFunction
-  public readonly queueService: NodejsFunction
+  public readonly services: ServiceInterface
 
   constructor(scope: Construct, id: string, props: ServiceProps) {
     super(scope, id)
 
-    const nodeJsFunctionProps: NodejsFunctionProps = {
+    const funcProps: NodejsFunctionProps = {
       bundling: {
         externalModules: ['aws-sdk'],
       },
@@ -32,28 +29,38 @@ export class ServiceStack extends Construct {
       timeout: Duration.seconds(10),
     }
 
-    this.productService = new NodejsFunction(this, 'productLambda', {
-      entry: join(__dirname, '/../src/ProductApi.ts'),
-      ...nodeJsFunctionProps,
-    })
+    this.services = {
+      // products
+      createProduct: this.createHandler(funcProps, 'createProduct'),
+      editProduct: this.createHandler(funcProps, 'editProduct'),
+      getProducts: this.createHandler(funcProps, 'getProducts'),
+      getSellerProducts: this.createHandler(funcProps, 'getSellerProducts'),
+      getProduct: this.createHandler(funcProps, 'getProduct'),
+      deleteProduct: this.createHandler(funcProps, 'deleteProduct'),
 
-    this.categoryService = new NodejsFunction(this, 'categoryLambda', {
-      entry: join(__dirname, '/../src/CategoryApi.ts'),
-      ...nodeJsFunctionProps,
-    })
+      // categories
+      createCategory: this.createHandler(funcProps, 'createCategory'),
+      editCategory: this.createHandler(funcProps, 'editCategory'),
+      getCategories: this.createHandler(funcProps, 'getCategories'),
+      getCategory: this.createHandler(funcProps, 'getCategory'),
+      deleteCategory: this.createHandler(funcProps, 'deleteCategory'),
 
-    this.dealsService = new NodejsFunction(this, 'dealsLambda', {
-      entry: join(__dirname, '/../src/DealsApi.ts'),
-      ...nodeJsFunctionProps,
-    })
+      // deals
+      createDeals: this.createHandler(funcProps, 'createDeals'),
 
-    this.imageService = new NodejsFunction(this, 'imageUploadLambda', {
-      entry: join(__dirname, '/../src/ImageApi.ts'),
-      ...nodeJsFunctionProps,
-    })
-    this.queueService = new NodejsFunction(this, 'queueLambda', {
-      entry: join(__dirname, '/../src/MessageQueue.ts'),
-      ...nodeJsFunctionProps,
+      // images
+      imageUploader: this.createHandler(funcProps, 'imageUploader'),
+
+      // message queue
+      messageQueueHandler: this.createHandler(funcProps, 'messageQueueHandler'),
+    }
+  }
+
+  createHandler(props: NodejsFunctionProps, handler: string): NodejsFunction {
+    return new NodejsFunction(this, handler, {
+      entry: join(__dirname, '/../src/handlers/index.ts'),
+      handler: handler,
+      ...props,
     })
   }
 }
