@@ -1,8 +1,10 @@
 import { CreatePaymentSessionInput } from '../models/dto/CreatePaymentSessionInput'
 import Stripe from 'stripe'
 
-export const STRIPE_SECRET_KEY = process.env.STRIPE_SECRET_KEY
-export const STRIPE_PUBLISHABLE_KEY = process.env.STRIPE_PUBLISHABLE_KEY
+export const STRIPE_SECRET_KEY =
+  'sk_test_51Lk6vcEZ0tWljSHVvwZnDPVxrkrU8ajJoUzPs3FxBZb3EcoF8YN8XbOBRfY3gp9bPOxL10xlMZ4yAVGg3T0WIcl300Qrq4ie4D'
+export const STRIPE_PUBLISHABLE_KEY =
+  'pk_test_51Lk6vcEZ0tWljSHVInJCCsfd54GpSVwbNjnOEoapDTjoHKGyEHi4YP6dY8qCtIMWuXGmGPq2dSCZAf0TwZKWLSpl0008fHNYcj'
 
 export const APPLICATION_FEE = (totalAmount: number) => {
   const appFee = 1.5 // application fee in %

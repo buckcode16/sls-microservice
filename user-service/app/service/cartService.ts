@@ -190,6 +190,11 @@ export class CartService {
         paymentId,
       })
 
+      console.log('secret', secret)
+      console.log('publishableKey', publishableKey)
+      console.log('customerId', customerId)
+      console.log('paymentId', paymentId)
+
       return SuccessResponse({ secret, publishableKey })
     } catch (error) {
       console.log(error)
@@ -210,26 +215,33 @@ export class CartService {
     console.log(payment_id)
 
     const paymentInfo = await RetrivePayment(payment_id)
-    console.log(paymentInfo)
+    console.log('paymentInfo', paymentInfo)
 
     if (paymentInfo.status === 'succeeded') {
-      // const cartItems = await this.repository.findCartItems(payload.user_id);
+      const cartItems = await this.repository.findCartItems(payload.user_id)
 
-      // // Send SNS topic to create Order [Transaction MS] => email to user
-      // const params = {
-      //   Message: JSON.stringify(cartItems),
-      //   TopicArn: process.env.SNS_TOPIC,
-      //   MessageAttributes: {
-      //     actionType: {
-      //       DataType: "String",
-      //       StringValue: "place_order",
-      //     },
-      //   },
-      // };
-      // const sns = new aws.SNS();
-      // const response = await sns.publish(params).promise();
-      // console.log(response);
-      return SuccessResponse({ msg: 'success', paymentInfo })
+      // Send SNS topic to create Order [Transaction MS] => email to user
+      const params = {
+        Message: JSON.stringify({
+          userId: payload.user_id,
+          items: cartItems,
+          transaction: paymentInfo,
+        }),
+        TopicArn: process.env.SNS_TOPIC,
+        MessageAttributes: {
+          actionType: {
+            DataType: 'String',
+            StringValue: 'place_order',
+          },
+        },
+      }
+      const sns = new aws.SNS()
+      const response = await sns.publish(params).promise()
+      console.log(response)
+      console.log(JSON.stringify(params))
+      // update payment id = ""
+      // delete all cart items
+      return SuccessResponse({ msg: 'success', params })
     }
 
     return ErrorResponse(503, new Error('payment failed!'))

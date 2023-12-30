@@ -14,12 +14,14 @@ provider:
   # SNS Topic
   environment:
     SNS_TOPIC: { Ref: CustomerTopic }
-  iamRoleStatements:
-    - Effect: 'Allow'
-      Action:
-        - 'sns:Publish'
-      Resource:
-        - !Ref CustomerTopic
+  iam:
+    role:
+      statements:
+        - Effect: 'Allow'
+          Action:
+            - 'sns:Publish'
+          Resource:
+            - { Ref: CustomerTopic }
 
 custom:
   stage: dev
@@ -119,9 +121,6 @@ plugins:
   - serverless-offline
   - serverless-plugin-typescript
   - serverless-plugin-optimize
-
-package:
-  individually: true
 
 resources:
   Resources:
