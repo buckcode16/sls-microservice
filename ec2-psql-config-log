@@ -41,3 +41,42 @@ postgres=# \du
 --------------+------------------------------------------------------------+-----------
  postgres     | Superuser, Create role, Create DB, Replication, Bypass RLS | {}
  user_service | Create DB
+
+
+
+ ============================ TRANSACTION SERVICE ============================
+
+ubuntu@ip-172-31-16-12:~$ sudo su postgres
+postgres@ip-172-31-16-12:/home/ubuntu$ psql
+could not change directory to "/home/ubuntu": Permission denied
+psql (14.10 (Ubuntu 14.10-0ubuntu0.22.04.1))
+Type "help" for help.
+
+postgres=# CREATE ROLE transaction_service;
+CREATE ROLE
+postgres=# \ud
+invalid command \ud
+Try \? for help.
+postgres=# \du
+                                        List of roles
+      Role name      |                         Attributes                         | Member of
+---------------------+------------------------------------------------------------+-----------
+ postgres            | Superuser, Create role, Create DB, Replication, Bypass RLS | {}
+ transaction_service | Cannot login                                               | {}
+ user_service        | Create DB                                                  | {}
+
+postgres=# ALTER ROLE transaction_service WITH LOGIN;
+ALTER ROLE
+postgres=# ALTER ROLE transaction_service WITH PASSWORD 'transaction_service';
+ALTER ROLE
+postgres=# ALTER ROLE transaction_service WITH CREATEDB;
+ALTER ROLE
+postgres=# \du
+                                        List of roles
+      Role name      |                         Attributes                         | Member of
+---------------------+------------------------------------------------------------+-----------
+ postgres            | Superuser, Create role, Create DB, Replication, Bypass RLS | {}
+ transaction_service | Create DB                                                  | {}
+ user_service        | Create DB                                                  | {}
+
+postgres=#

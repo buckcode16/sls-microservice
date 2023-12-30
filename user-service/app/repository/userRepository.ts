@@ -1,8 +1,7 @@
-import { UserModel } from '../models/UserModel'
 import { AddressModel } from '../models/AddressModel'
-import { DBClient } from '../utility/databaseClient'
-import { DBOperation } from './dbOperation'
 import { ProfileInput } from '../models/dto/AddressInput'
+import { UserModel } from '../models/UserModel'
+import { DBOperation } from './dbOperation'
 
 export class UserRepository extends DBOperation {
   constructor() {
