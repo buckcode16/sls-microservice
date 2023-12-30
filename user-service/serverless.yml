@@ -116,6 +116,24 @@ functions:
       - httpApi:
           path: /order
           method: post
+  join-seller-program:
+    handler: app/handler.JoinSellerProgram
+    events:
+      - httpApi:
+          path: /join
+          method: post
+  get-payment-method:
+    handler: app/handler.GetPaymentMethods
+    events:
+      - httpApi:
+          path: /payment-methods
+          method: get
+  edit-payment-method:
+    handler: app/handler.EditPaymentMethods
+    events:
+      - httpApi:
+          path: /payment-methods/{id}
+          method: put
 
 plugins:
   - serverless-offline
