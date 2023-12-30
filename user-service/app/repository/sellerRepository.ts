@@ -14,7 +14,7 @@ export class SellerRepository extends DBOperation {
 
   async checkEnrolledProgram(userId: number) {
     const queryString =
-      'SELECT user_type from users WHERE ue_id=$1 AND user_type=$2'
+      'SELECT user_type from users WHERE user_id=$1 AND user_type=$2'
     const result = await this.executeQuery(queryString, [userId, 'SELLER'])
     if (result.rowCount > 0) {
       return true
@@ -49,19 +49,19 @@ export class SellerRepository extends DBOperation {
     const addressQuery = 'SELECT * FROM address WHERE user_id=$1'
     const addressResult = await this.executeQuery(addressQuery, [input.user_id])
 
-    let queryString = `INSERT INTO address (user_id, address_line_1, address_line_2, city, post_code, country, user_id) VALUES ($1, $2, $3, $4, $5, $6)`
+    let queryString = `INSERT INTO address (user_id, address_line1, address_line2, city, post_code, country) VALUES ($1, $2, $3, $4, $5, $6)`
 
     const values = [
+      input.user_id,
       input.addressLine1,
       input.addressLine2,
       input.city,
       input.postCode,
       input.country,
-      input.user_id,
     ]
 
     if (addressResult.rowCount > 0) {
-      queryString = `UPDATE address SET address_line_1=$1, address_line_2=$2, city=$3, post_code=$4, country=$5 WHERE user_id=$6`
+      queryString = `UPDATE address SET address_line1=$1, address_line2=$2, city=$3, post_code=$4, country=$5 WHERE user_id=$6`
     }
 
     return this.executeQuery(queryString, values)
@@ -94,7 +94,15 @@ export class SellerRepository extends DBOperation {
     payment_id,
     user_id,
   }: PaymentMethodInput & { payment_id: number; user_id: number }) {
-    const queryString = `UPDATE payment_methods SET bank_account=$1, swift_code=$2, payment_type=$3 WHERE id=$4 AND user_id=$5`
+    const queryString = `UPDATE payment_methods 
+    SET 
+      bank_account=$1, 
+      swift_code=$2, 
+      payment_type=$3 
+    WHERE 
+      id=$4 
+    AND 
+      user_id=$5`
     const values = [
       Number(bankAccountNumber),
       swiftCode,
