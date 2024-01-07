@@ -44,7 +44,7 @@ export class CartService {
         currentCart = await this.repository.createShoppingCart(payload.user_id)
 
       if (!currentCart) {
-        return ErrorResponse(500, 'create cart is failed!')
+        return ErrorResponse(500, 'create cart has failed!')
       }
 
       // find the item if exist
@@ -58,7 +58,7 @@ export class CartService {
           (currentProduct.item_qty += input.qty),
         )
       } else {
-        // if does not call Product service to get product information
+        // if not call Product service to get product information
         const { data, status } = await PullData({
           action: 'PULL_PRODUCT_DATA',
           productId: input.productId,
@@ -213,7 +213,7 @@ export class CartService {
     )
 
     console.log(payment_id)
-
+    console.log('process.env.SNS_TOPIC', process.env.SNS_TOPIC)
     const paymentInfo = await RetrivePayment(payment_id)
     console.log('paymentInfo', paymentInfo)
 

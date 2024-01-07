@@ -19,7 +19,7 @@ interface ResourceType {
 export class ApiGatewayStack extends Construct {
   constructor(scope: Construct, id: string, props: ApiGatewayStackProps) {
     super(scope, id)
-    this.addResource('transaction', props)
+    this.addResource('', props)
   }
 
   addResource(

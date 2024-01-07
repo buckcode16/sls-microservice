@@ -1,1 +1,0 @@
-{"version":3,"file":"index.js","sourceRoot":"","sources":["../../../app/message-queue/index.ts"],"names":[],"mappings":";;;;;;;;;;;;;;;AAAA,kDAAyB;AAEzB,MAAM,mBAAmB;AACvB,mBAAmB;AAEnB,+BAA+B;AAC/B,iFAAiF,CAAA;AAEnF,SAAS;AACT,yCAAyC;AAElC,MAAM,QAAQ,GAAG,CAAO,WAAoC,EAAE,EAAE;IACrE,OAAO,eAAK,CAAC,IAAI,CAAC,mBAAmB,EAAE,WAAW,CAAC,CAAA;AACrD,CAAC,CAAA,CAAA;AAFY,QAAA,QAAQ,YAEpB"}

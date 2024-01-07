@@ -34,3 +34,7 @@ export const EditProfile = middy((event: APIGatewayProxyEventV2) => {
 export const GetProfile = middy((event: APIGatewayProxyEventV2) => {
   return service.GetProfile(event)
 }).use(bodyParser())
+
+export const GetSellerProfile = middy((event: APIGatewayProxyEventV2) => {
+  return service.GetSellerProfile(event)
+}).use(bodyParser())

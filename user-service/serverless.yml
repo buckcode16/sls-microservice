@@ -72,6 +72,12 @@ functions:
       - httpApi:
           path: /user
           method: get
+  get-seller-profile:
+    handler: app/handler.GetSellerProfile
+    events:
+      - httpApi:
+          path: /seller-profile/{id}
+          method: get
   # Cart Section
   create-cart:
     handler: app/handler.CreateCart

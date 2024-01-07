@@ -119,6 +119,28 @@ export class UserRepository extends DBOperation {
     return userProfile
   }
 
+  async getSellerProfile(seller_id: number) {
+    const profileQuery =
+      'SELECT first_name, last_name, email, phone FROM users WHERE user_id=$1'
+    const profileValues = [seller_id]
+    const profileResult = await this.executeQuery(profileQuery, profileValues)
+    if (profileResult.rowCount < 1) {
+      throw new Error('Seller profile does not exist!')
+    }
+
+    const userProfile = profileResult.rows[0] as UserModel
+
+    const addressQuery =
+      'SELECT id, address_line1, address_line2, city, post_code, country FROM address WHERE user_id=$1'
+    const addressValues = [seller_id]
+    const addressResult = await this.executeQuery(addressQuery, addressValues)
+    if (addressResult.rowCount > 0) {
+      userProfile.address = addressResult.rows as AddressModel[]
+    }
+
+    return userProfile
+  }
+
   async editProfile(
     user_id: number,
     {

@@ -171,6 +171,28 @@ export class UserService {
       ErrorResponse(500, error)
     }
   }
+
+  async GetSellerProfile(event: APIGatewayProxyEventV2) {
+    try {
+      if (!event.pathParameters || !event.pathParameters.id) {
+        return ErrorResponse(400, 'Please provide seller id')
+      }
+
+      const sellerId = parseInt(event.pathParameters.id)
+      if (isNaN(sellerId)) {
+        return ErrorResponse(400, 'Seller id must be a number')
+      }
+
+      const result = await this.repository.getSellerProfile(sellerId)
+      console.log(result)
+
+      return SuccessResponse(result)
+    } catch (error) {
+      console.error('Error in GetSellerProfile:', error)
+      return ErrorResponse(500, 'Internal Server Error')
+    }
+  }
+
   async EditProfile(event: APIGatewayProxyEventV2) {
     try {
       const token = event.headers.authorization

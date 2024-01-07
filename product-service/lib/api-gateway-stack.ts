@@ -133,7 +133,7 @@ export class ApiGatewayStack extends Construct {
 
     // Message queue endpoints
     this.createEndpoints(apgw, {
-      name: 'product-queue',
+      name: 'products-queue',
       methods: [
         {
           methodType: 'POST',

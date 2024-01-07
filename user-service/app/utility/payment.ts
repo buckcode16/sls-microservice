@@ -43,7 +43,7 @@ export const CreatePaymentSession = async ({
   const { client_secret, id } = await stripe.paymentIntents.create({
     customer: currentCustomerId,
     payment_method_types: ['card'],
-    amount: parseInt(`${amount * 100}`), // need to assign as cents
+    amount: parseInt(`${amount * 100}`), // assign as cents
     currency: 'usd',
   })
 

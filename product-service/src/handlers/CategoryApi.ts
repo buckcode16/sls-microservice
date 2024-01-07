@@ -23,7 +23,7 @@ export const getCategory = middy(
   ): Promise<APIGatewayProxyResult> => {
     return service.getCategory(event)
   },
-).use(bodyParser())
+)
 
 export const getCategories = middy(
   (
@@ -32,7 +32,7 @@ export const getCategories = middy(
   ): Promise<APIGatewayProxyResult> => {
     return service.getCategories(event)
   },
-).use(bodyParser())
+)
 
 export const editCategory = middy(
   (

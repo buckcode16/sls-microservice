@@ -24,7 +24,7 @@ export const getProduct = middy(
   ): Promise<APIGatewayProxyResult> => {
     return service.getProduct(event)
   },
-).use(bodyParser())
+)
 
 export const getProducts = middy(
   (
@@ -33,7 +33,7 @@ export const getProducts = middy(
   ): Promise<APIGatewayProxyResult> => {
     return service.getProducts(event)
   },
-).use(bodyParser())
+)
 
 export const getSellerProducts = middy(
   (

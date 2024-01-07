@@ -2,10 +2,10 @@ import { Client } from 'pg'
 
 export const DBClient = () => {
   return new Client({
-    host: 'ec2-52-221-214-109.ap-southeast-1.compute.amazonaws.com',
+    host: 'ec2-3-1-83-47.ap-southeast-1.compute.amazonaws.com',
     user: 'user_service',
     database: 'user_service',
-    password: 'user_service',
+    password: 'user_service1123',
     port: 5432,
   })
 }
@@ -18,10 +18,10 @@ export const DBClient = () => {
 // port: 5432,
 
 // EC2 Self Managed RDS Instance
-// host: 'ec2-52-221-214-109.ap-southeast-1.compute.amazonaws.com',
+// host: 'ec2-3-1-83-47.ap-southeast-1.compute.amazonaws.com',
 // user: 'user_service',
 // database: 'user_service',
-// password: 'user_service',
+// password: 'user_service1123',
 // port: 5432,
 
 // Local Host Instance

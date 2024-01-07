@@ -25,24 +25,46 @@ export class CategoryRepository {
       ]
       await parentCategory.save()
     }
-    // return newly create category
+    // return newly created category
 
     return newCategory
   }
 
-  async getAllCategories(offset = 0, perPage?: number) {
-    return categories
-      .find({ parentId: null })
-      .populate({
+  async getAllCategories(offset = 0, perPage = 100) {
+    // Renamed 'categories' to 'allCategories' to avoid naming conflict
+    let allCategories = await this._recursivePopulate(
+      await categories
+        .find({ parentId: null })
+        .skip(offset)
+        .limit(perPage ? perPage : 100),
+    )
+    return allCategories
+  }
+
+  async _recursivePopulate(
+    categoriesToPopulate: CategoryDoc[],
+  ): Promise<CategoryDoc[]> {
+    for (let category of categoriesToPopulate) {
+      // Updated to directly await the result of populate
+      const populatedCategory = await category.populate({
         path: 'subCategories',
         model: 'categories',
         populate: {
-          path: 'subCategories',
-          model: 'categories',
+          path: 'products',
+          model: 'products',
         },
       })
-      .skip(offset)
-      .limit(perPage ? perPage : 100)
+
+      // Update the category with the populated data
+      category.subCategories = populatedCategory.subCategories
+
+      if (category.subCategories && category.subCategories.length > 0) {
+        category.subCategories = await this._recursivePopulate(
+          category.subCategories,
+        )
+      }
+    }
+    return categoriesToPopulate
   }
 
   async getTopCategories() {
