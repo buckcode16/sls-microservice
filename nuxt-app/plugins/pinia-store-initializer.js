@@ -4,6 +4,6 @@ export default defineNuxtPlugin(async (nuxtApp) => {
   const productStore = useProductStore()
 
   if (!productStore.isInitialized) {
-    await productStore.initializeStore(useRuntimeConfig())
+    await productStore.initProductStore(useRuntimeConfig())
   }
 })

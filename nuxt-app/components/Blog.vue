@@ -10,7 +10,7 @@
           class="overflow-hidden transition-shadow duration-300 bg-white rounded shadow-sm"
         >
           <img
-            src="https://www.games-workshop.com/resources/touts/2023-08-12/GW-40kPainting-2023-08-12-LPMulticol-All-bm.jpg"
+            src="https://www.warhammer.com/ur4mtvpiojcu/6YCeGJ4j3nSQCNMau1aJpq/3859c0422ff021bed6b1d484a0b8225f/Filter_-_Armies_of_the_Imperium.png?fm=webp&w=1920&h=580"
             class="object-cover w-full h-64"
             alt=""
           />
@@ -24,7 +24,7 @@
               >
                 Idea
               </a>
-              <span class="text-gray-600">— 28 Dec 2020</span>
+              <span class="text-gray-600">— 28 Dec 2023</span>
             </p>
             <a
               href="/"
@@ -51,7 +51,7 @@
           class="overflow-hidden transition-shadow duration-300 bg-white rounded shadow-sm"
         >
           <img
-            src="https://www.games-workshop.com/resources/touts/2023-05-06/GW-KT-Gallowfall-2023-05-06-LPMulticol-All-bm.jpg"
+            src="https://www.warhammer.com/ur4mtvpiojcu/e8XU1i6zisNrn9GyxOW5X/cd9df80cee21974c31aa288fb6731938/LP40K-231021-Con2-SM-Range.jpg?fm=webp&w=1520"
             class="object-cover w-full h-64"
             alt=""
           />
@@ -65,7 +65,7 @@
               >
                 Feature
               </a>
-              <span class="text-gray-600">— 28 Dec 2020</span>
+              <span class="text-gray-600">— 28 Dec 2023</span>
             </p>
             <a
               href="/"
@@ -92,7 +92,7 @@
           class="overflow-hidden transition-shadow duration-300 bg-white rounded shadow-sm"
         >
           <img
-            src="https://ksr-ugc.imgix.net/assets/042/319/360/b3eb2eeec39951df35fb89c39126c645_original.png?ixlib=rb-4.1.0&crop=faces&w=1024&h=576&fit=crop&v=1694815097&auto=format&frame=1&q=92&s=f44d60879aeb2c9511eb97a211457cef"
+            src="https://pbs.twimg.com/card_img/1743272489369612288/Jn_x4hGn?format=jpg&name=small"
             class="object-cover w-full h-64"
             alt=""
           />
@@ -106,7 +106,7 @@
               >
                 News
               </a>
-              <span class="text-gray-600">— 28 Dec 2020</span>
+              <span class="text-gray-600">— 28 Dec 2023</span>
             </p>
             <a
               href="/"

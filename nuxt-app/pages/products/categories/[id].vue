@@ -11,7 +11,6 @@
         </NuxtLink>
       </li>
     </ul>
-    {{ productsByCategory }}
   </div>
   <div v-else>
     <p>category not found.</p>
@@ -19,25 +18,48 @@
 </template>
 
 <script setup>
-import { useCategoryLookup } from '~/composables/useCategoryLookup'
-import { useGetProductsFromCategory } from '~/composables/useGetProductsFromCategory'
 import { useProductStore } from '~/stores/productStore'
 
 const route = useRoute()
 const productStore = useProductStore()
-const { getCategoryAndSubcategories } = useCategoryLookup()
-const { getProductsFromCategory } = useGetProductsFromCategory()
-const category = useAsyncData(async () => {
-  if (!productStore.isInitialized) {
-    await productStore.initializeStore()
+
+function findCategory(categories, categoryId) {
+  for (const category of categories) {
+    if (category._id === categoryId) {
+      return category
+    }
+    if (category.subCategories) {
+      const found = findCategory(category.subCategories, categoryId)
+      if (found) return found
+    }
+  }
+  return null
+}
+
+// Recursive function to collect all category IDs
+function getAllCategoryIds(category) {
+  let ids = [category._id]
+
+  if (category.subCategories) {
+    for (const subCategory of category.subCategories) {
+      ids = ids.concat(getAllCategoryIds(subCategory))
+    }
   }
 
-  const categoryId = route.params.id
-  const foundCategory = getCategoryAndSubcategories(categoryId)
+  return ids
+}
 
-  if (foundCategory) {
-    return getProductsFromCategory(foundCategory)
+const categoryId = route.params.id
+const productsByCategory = computed(() => {
+  const category = findCategory(productStore.categories, categoryId)
+  if (!category) {
+    console.error('Category not found for ID:', categoryId)
+    return []
   }
+
+  const allCategoryIds = getAllCategoryIds(category)
+  return productStore.products.filter((product) =>
+    allCategoryIds.includes(product.category_id),
+  )
 })
-const productsByCategory = ref([])
 </script>

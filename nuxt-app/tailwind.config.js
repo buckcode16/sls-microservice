@@ -6,6 +6,7 @@ export default {
       fontFamily: {
         roboto: ['Roboto', 'sans-serif'],
         cinzel: ['Cinzel', 'serif'],
+        iconso: ['Iconsolata', 'monospace'],
       },
     },
   },

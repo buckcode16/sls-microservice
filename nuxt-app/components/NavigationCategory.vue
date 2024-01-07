@@ -1,30 +1,33 @@
 <template>
   <div
-    class="pl-7 bg-paper-primary pt-4 pb-0 hidden md:flex border-b border-neutral"
+    class="py-2 rounded-sm flex flex-row font-iconso uppercase italic text-[10px] bg-gray-100"
   >
     <!-- Hamburger all categories -->
-    <button
-      type="button"
-      class="group hidden md:flex md:mr-6 md:pb-3 cK_xUFG6 p-0 bg-transparent cursor-pointer border-0 leading-[inherit] text-current hover:text-link-primary-hover rounded-md focus-visible-outline-default no-underline"
-      data-test="desktop-burger-menu"
-    >
-      <div class="h-4 mr-2 relative w-5">
-        <span
-          class="absolute block duration-150 ease-linear origin-right h-px right-0 transition-transform w-full transform-gpu bg-black group-hover:bg-grey-400 top-0 group-hover:scale-x-75"
-        ></span>
-        <span
-          class="absolute block duration-150 ease-linear origin-left h-px left-0 top-1/2 transition-transform w-full transform-gpu bg-black group-hover:bg-grey-400 group-hover:scale-x-75"
-        ></span>
-        <span
-          class="absolute block duration-150 ease-linear origin-right h-px right-0 transition-transform w-full transform-gpu bg-black group-hover:bg-grey-400 top-full group-hover:scale-x-75"
-        ></span>
-      </div>
-      <span class="body-2-bold self-end">
-        All items
-      </span>
-    </button>
+    <div class="px-2">
+      <button
+        type="button"
+        class="group flex flex-row items-center mr-6 bg-transparent cursor-pointer"
+      >
+        <div class="h-3 mr-3 relative w-5">
+          <span
+            class="absolute block duration-150 ease-linear origin-right h-px right-0 transition-transform w-full transform-gpu bg-black group-hover:bg-grey-400 top-0 group-hover:scale-x-75"
+          ></span>
+          <span
+            class="absolute block duration-150 ease-linear origin-left h-px left-0 top-1/2 transition-transform w-full transform-gpu bg-black group-hover:bg-grey-400 group-hover:scale-x-75"
+          ></span>
+          <span
+            class="absolute block duration-150 ease-linear origin-right h-px right-0 transition-transform w-full transform-gpu bg-black group-hover:bg-grey-400 top-full group-hover:scale-x-75"
+          ></span>
+        </div>
+        <div>
+          <span class="body-2-bold self-end">
+            <NuxtLink to="/products">All items</NuxtLink>
+          </span>
+        </div>
+      </button>
+    </div>
     <div class="items-center flex-1 overflow-hidden whitespace-nowrap">
-      <div class="flex items-center overflow-x-scroll pb-3 scrollbar-hide">
+      <div class="flex items-center overflow-x-scroll scrollbar-hide">
         <span class="mr-6 body-2-light first:pl-6 last:mr-8">Promotions</span>
         <span class="mr-6 body-2-light first:pl-6 last:mr-8">Top Sellers</span>
         <span class="mr-6 body-2-light first:pl-6 last:mr-8">New In Stock</span>

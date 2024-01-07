@@ -2,7 +2,7 @@
   <div>
     <!-- Newsletter -->
     <div
-      class="relative isolate overflow-hidden bg-gray-900 py-16 sm:py-24 lg:py-32"
+      class="relative isolate overflow-hidden py-16 sm:py-24 lg:py-32 rounded-md bg-white/5 ring-1 ring-white/10"
     >
       <div class="mx-auto max-w-7xl px-6 lg:px-8">
         <div
@@ -31,7 +31,7 @@
               />
               <button
                 type="submit"
-                class="flex-none rounded-md bg-indigo-500 px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500"
+                class="flex-none rounded-md bg-black px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500"
               >
                 Subscribe
               </button>

@@ -13,7 +13,7 @@
             class="inline-flex items-center"
           >
             <svg
-              class="w-8 text-deep-purple-accent-400"
+              class="w-8 text-gray-500"
               viewBox="0 0 24 24"
               stroke-linejoin="round"
               stroke-width="2"
@@ -28,28 +28,28 @@
               <rect x="14" y="11" width="7" height="12"></rect>
             </svg>
             <span
-              class="ml-2 text-xl font-bold tracking-wide text-gray-800 uppercase"
+              class="ml-2 text-xl font-bold tracking-wide text-gray-500 uppercase"
             >
               Company
             </span>
           </a>
           <div class="mt-6 lg:max-w-sm">
-            <p class="text-sm text-gray-800">
+            <p class="text-sm text-gray-500">
               Sed ut perspiciatis unde omnis iste natus error sit voluptatem
               accusantium doloremque laudantium, totam rem aperiam.
             </p>
-            <p class="mt-4 text-sm text-gray-800">
+            <p class="mt-4 text-sm text-gray-500">
               Eaque ipsa quae ab illo inventore veritatis et quasi architecto
               beatae vitae dicta sunt explicabo.
             </p>
           </div>
         </div>
         <div class="space-y-2 text-sm">
-          <p class="text-base font-bold tracking-wide text-gray-900">
+          <p class="text-base font-bold tracking-wide text-gray-500">
             Contacts
           </p>
           <div class="flex">
-            <p class="mr-1 text-gray-800">Phone:</p>
+            <p class="mr-1 text-gray-500">Phone:</p>
             <a
               href="tel:850-123-5021"
               aria-label="Our phone"
@@ -60,7 +60,7 @@
             </a>
           </div>
           <div class="flex">
-            <p class="mr-1 text-gray-800">Email:</p>
+            <p class="mr-1 text-gray-500">Email:</p>
             <a
               href="mailto:info@lorem.mail"
               aria-label="Our email"
@@ -71,7 +71,7 @@
             </a>
           </div>
           <div class="flex">
-            <p class="mr-1 text-gray-800">Address:</p>
+            <p class="mr-1 text-gray-500">Address:</p>
             <a
               href="https://www.google.com/maps"
               target="_blank"
@@ -85,7 +85,7 @@
           </div>
         </div>
         <div>
-          <span class="text-base font-bold tracking-wide text-gray-900">
+          <span class="text-base font-bold tracking-wide text-gray-500">
             Social
           </span>
           <div class="flex items-center mt-1 space-x-3">

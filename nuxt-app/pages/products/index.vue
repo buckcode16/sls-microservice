@@ -1,13 +1,21 @@
 <template>
-  <div v-if="allProducts">
-    <ul class="grid grid-rows-1 grid-flow-col auto-rows-max w-max gap-2 pr-6">
+  <div>
+    <h1 class="text-4xl text-white m-4 pt-10">
+      <UTooltip text="All Products">
+        <Icon name="game-icons:warhammer" />
+      </UTooltip>
+      ALL PRODUCTS
+    </h1>
+  </div>
+  <div v-if="productStore.products" class="mt-7">
+    <ul class="flex flex-wrap gap-1 justify-center mt-2">
       <li
-        v-for="product in allProducts"
+        v-for="product in productStore.products"
         :key="product._id"
         class="list-none snap-start"
       >
         <NuxtLink :to="`/products/${product._id}`">
-          <Card :product="product" />
+          <Card :product="product" class="w-[250px]" />
         </NuxtLink>
       </li>
     </ul>
@@ -15,11 +23,10 @@
   <div v-else>
     <p>products not found.</p>
   </div>
-  empty page
 </template>
 
 <script setup>
 import { useProductStore } from '~/stores/productStore'
 
-const allProducts = useProductStore().products
+const productStore = useProductStore()
 </script>
